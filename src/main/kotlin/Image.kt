@@ -1,20 +1,44 @@
-import org.bytedeco.opencv.opencv_core.Mat
+import org.bytedeco.javacv.Frame
+import org.bytedeco.javacv.Java2DFrameConverter
+import java.awt.image.BufferedImage
 
-data class Image(val pixels: List<List<Float>>) {
+data class Image(val pixelValues: List<List<Float>>) {
 	
-	constructor(frame: Mat) : this(frameToFloat(frame))
+	constructor(frame: Frame) : this(frameToFloat(frame))
 	
-	fun printASCII() {
+	fun getAscii(): List<List<Char>> {
 		val symbols: List<Char> = listOf('.', ',', '-', '~', ':', ';', '!', '#', '$', '@')
-		for (floats: List<Float> in pixels) {
-			for (v: Float in floats) {
-				val index: Int = (v.toInt() * 10).coerceAtMost(9)
-				print(symbols[index])
+//		val symbols: CharArray = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^'.`".reversed().toCharArray()
+		val asciiImage: MutableList<MutableList<Char>> = MutableList(pixelValues.size) { MutableList(pixelValues[0].size) { ' ' } }
+		
+		for ((i: Int, floats: List<Float>) in pixelValues.withIndex()) {
+			for ((j: Int, v: Float) in floats.withIndex()) {
+				val index: Int = (v * (symbols.size - 1)).toInt()
+				asciiImage[i][j] = symbols[index]
 			}
-			println()
 		}
+		
+		return asciiImage
 	}
 }
 
-private fun frameToFloat(frame: Mat): List<List<Float>> {
+private fun frameToFloat(frame: Frame): List<List<Float>> {
+	val image: BufferedImage = Java2DFrameConverter().convert(frame)
+	
+	val height = image.height
+	val width = image.width
+	
+	val floatArray: MutableList<MutableList<Float>> = MutableList(height) { MutableList(width) { 0f } }
+	
+	for (x in 0 until width) {
+		for (y in 0 until height) {
+			val pixel: Int = image.getRGB(x, y)
+			val grey = (pixel shr 16) and 0xFF  // extract greyscale value using red component
+			val normalized: Float = 1f - (grey / 255f)  // normalize in 0-1 range, 1 - ... inverts colors
+			
+			floatArray[y][x] = normalized
+		}
+	}
+	
+	return floatArray
 }

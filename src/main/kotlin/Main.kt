@@ -1,23 +1,26 @@
-import org.bytedeco.javacv.CanvasFrame
 import org.bytedeco.javacv.Frame
-import org.bytedeco.javacv.OpenCVFrameConverter
 import org.bytedeco.javacv.OpenCVFrameGrabber
-import org.bytedeco.opencv.opencv_core.Mat
 
 fun main() {
 	val grabber = OpenCVFrameGrabber(0)  // 0 = default camera
-	val converter = OpenCVFrameConverter.ToMat()
 	grabber.start()
 	
-	val canvas = CanvasFrame("pascii")
+	val window = AsciiWindow()
 	
-	while (canvas.isVisible) {
+	while (true) {
 		val frame: Frame = grabber.grab()
-		val mat: Mat = converter.convert(frame)
+		val image = Image(frame)
 		
-		canvas.showImage(frame)
+		val asciiString: String = buildString {
+			for (row in image.getAscii()) {
+				for (c in row)
+					append(c)
+				append("\n")
+			}
+		}
+		
+		window.setAsciiArea(asciiString)
 	}
 	
 	grabber.stop()
-	canvas.dispose()
 }
