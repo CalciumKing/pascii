@@ -21,18 +21,36 @@ data class Image(val pixelValues: List<List<Float>>) {
 		return asciiImage
 	}
 	
-	fun scaleDownImage(factor: Int): Image {
-		val height: Int = pixelValues.size / factor
-		val width: Int = pixelValues[0].size / factor
-		val newPixels: MutableList<MutableList<Float>> = MutableList(height) { MutableList(width) { 0f } }
+	fun scaleDown(targetWidth: Int, targetHeight: Int): Image {
+		val sourceHeight: Int = pixelValues.size
+		val sourceWidth: Int = pixelValues[0].size
+		val newPixels: MutableList<MutableList<Float>> = MutableList(targetHeight) {
+			MutableList(targetWidth) { 0f }
+		}
 		
-		for (x in 0 until width) {
-			for (y in 0 until height) {
+		val xRatio: Float = sourceWidth.toFloat() / targetWidth
+		val yRatio: Float = sourceHeight.toFloat() / targetHeight
+		
+		for (x in 0 until targetWidth) {
+			for (y in 0 until targetHeight) {
+				
+				val startX = (x * xRatio).toInt()
+				val startY = (y * yRatio).toInt()
+				
 				var sum = 0f
-				for (xi in 0 until factor)
-					for (yi in 0 until factor)
-						sum += pixelValues[(y * factor) + yi][(x * factor) + xi]
-				newPixels[y][x] = sum / (factor * factor)
+				var count = 0
+				
+				for (xi in 0 until xRatio.toInt().coerceAtLeast(1)) {
+					for (yi in 0 until yRatio.toInt().coerceAtLeast(1)) {
+						val px = (startX + xi).coerceAtMost(sourceWidth - 1)
+						val py = (startY + yi).coerceAtMost(sourceHeight - 1)
+						
+						sum += pixelValues[py][px]
+						count++
+					}
+				}
+				
+				newPixels[y][x] = sum / count
 			}
 		}
 		

@@ -9,7 +9,7 @@ fun main() {
 	
 	while (true) {
 		val frame: Frame = grabber.grab()
-		val image = Image(frame).scaleDownImage(2)
+		val image = Image(frame).scaleDown(300, 75)
 		
 		val asciiString: String = buildString {
 			for (row in image.getAscii()) {
