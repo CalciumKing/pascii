@@ -52,7 +52,7 @@ private fun frameToFloat(frame: Frame): List<List<Float>> {
 		for (y in 0 until height) {
 			val pixel: Int = image.getRGB(x, y)
 			val grey = (pixel shr 16) and 0xFF  // extract greyscale value using red component
-			val normalized: Float = 1f - (grey / 255f)  // normalize in 0-1 range, 1 - ... inverts colors
+			val normalized: Float = grey / 255f  // normalize in 0-1 range, 1 - ... inverts colors
 			
 			floatArray[y][x] = normalized
 		}
