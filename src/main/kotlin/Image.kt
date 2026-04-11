@@ -20,6 +20,24 @@ data class Image(val pixelValues: List<List<Float>>) {
 		
 		return asciiImage
 	}
+	
+	fun scaleDownImage(factor: Int): Image {
+		val height: Int = pixelValues.size / factor
+		val width: Int = pixelValues[0].size / factor
+		val newPixels: MutableList<MutableList<Float>> = MutableList(height) { MutableList(width) { 0f } }
+		
+		for (x in 0 until width) {
+			for (y in 0 until height) {
+				var sum = 0f
+				for (xi in 0 until factor)
+					for (yi in 0 until factor)
+						sum += pixelValues[(y * factor) + yi][(x * factor) + xi]
+				newPixels[y][x] = sum / (factor * factor)
+			}
+		}
+		
+		return Image(newPixels)
+	}
 }
 
 private fun frameToFloat(frame: Frame): List<List<Float>> {
