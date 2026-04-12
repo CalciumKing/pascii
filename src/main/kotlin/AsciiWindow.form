@@ -14,6 +14,87 @@
           <font name="JetBrainsMono NF" size="8" style="0"/>
         </properties>
       </component>
+      <grid id="5f07" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints border-constraint="South"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="6f81f" class="javax.swing.JCheckBox" binding="invertCheckBox" default-binding="true">
+            <constraints/>
+            <properties>
+              <text value="Invert"/>
+              <toolTipText value="Invert Frame Greyscale Values"/>
+            </properties>
+          </component>
+          <component id="6bcc0" class="javax.swing.JCheckBox" binding="mirrorCheckBox" default-binding="true">
+            <constraints/>
+            <properties>
+              <selected value="true"/>
+              <text value="Mirror"/>
+              <toolTipText value="Horizontally Mirror Frame"/>
+            </properties>
+          </component>
+          <component id="17072" class="javax.swing.JCheckBox" binding="edgesCheckBox" default-binding="true">
+            <constraints/>
+            <properties>
+              <text value="Edges"/>
+              <toolTipText value="Only Show Edges"/>
+            </properties>
+          </component>
+          <component id="2e3a" class="javax.swing.JCheckBox" binding="noiseCheckBox" default-binding="true">
+            <constraints/>
+            <properties>
+              <text value="Noise"/>
+              <toolTipText value="Add Noise"/>
+            </properties>
+          </component>
+          <component id="2c70b" class="javax.swing.JComboBox" binding="charsetCombo">
+            <constraints/>
+            <properties>
+              <toolTipText value="Character Set To Display"/>
+            </properties>
+          </component>
+          <component id="f5927" class="javax.swing.JLabel" binding="resXLabel">
+            <constraints/>
+            <properties>
+              <text value="Label"/>
+              <toolTipText value="Current X Resolution (Column Count)"/>
+            </properties>
+          </component>
+          <component id="139e4" class="javax.swing.JSlider" binding="resXSlider">
+            <constraints/>
+            <properties>
+              <maximum value="1000"/>
+              <minimum value="1"/>
+              <toolTipText value="Resolution X (Column Count)"/>
+              <value value="365"/>
+            </properties>
+          </component>
+          <component id="4fa2e" class="javax.swing.JLabel" binding="resYLabel">
+            <constraints/>
+            <properties>
+              <text value="Label"/>
+              <toolTipText value="Current Y Resolution (Row Count)"/>
+            </properties>
+          </component>
+          <component id="2d7e3" class="javax.swing.JSlider" binding="resYSlider">
+            <constraints/>
+            <properties>
+              <maximum value="500"/>
+              <minimum value="1"/>
+              <toolTipText value="Resolution Y (Row Count)"/>
+              <value value="80"/>
+            </properties>
+          </component>
+          <component id="bde2b" class="javax.swing.JButton" binding="exitButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <text value="Exit"/>
+              <toolTipText value="Exit Program"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
     </children>
   </grid>
 </form>

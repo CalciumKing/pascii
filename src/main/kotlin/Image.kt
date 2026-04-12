@@ -1,10 +1,12 @@
 import org.bytedeco.javacv.Frame
 import org.bytedeco.javacv.Java2DFrameConverter
 import java.awt.image.BufferedImage
+import kotlin.math.abs
+import kotlin.random.Random
 
-data class Image(val pixelValues: List<List<Float>>) {
+data class Image(var pixelValues: List<List<Float>>, val settings: AsciiSettings) {
 	
-	constructor(frame: Frame) : this(frameToFloat(frame))
+	constructor(frame: Frame, settings: AsciiSettings) : this(frameToFloat(frame, settings), settings){
 	
 	fun getAscii(): List<List<Char>> {
 		val symbols: List<Char> = listOf('.', ',', '-', '~', ':', ';', '!', '#', '$', '@')
