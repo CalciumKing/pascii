@@ -9,9 +9,8 @@ data class Image(var pixelValues: List<List<Float>>, val settings: AsciiSettings
 	constructor(frame: Frame, settings: AsciiSettings) : this(frameToFloat(frame, settings), settings){
 	
 	fun getAscii(): List<List<Char>> {
-		val symbols: List<Char> = listOf('.', ',', '-', '~', ':', ';', '!', '#', '$', '@')
-//		val symbols: CharArray = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^'.`".reversed().toCharArray()
 		val asciiImage: MutableList<MutableList<Char>> = MutableList(pixelValues.size) { MutableList(pixelValues[0].size) { ' ' } }
+		val symbols: CharArray = settings.charSet.chars
 		
 		for ((i: Int, floats: List<Float>) in pixelValues.withIndex()) {
 			for ((j: Int, v: Float) in floats.withIndex()) {
