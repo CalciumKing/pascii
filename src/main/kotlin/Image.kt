@@ -21,7 +21,7 @@ data class Image(val pixelValues: List<List<Float>>) {
 		return asciiImage
 	}
 	
-	fun flipHorizontal(): Image {
+	fun flipHorizontal() {
 		val height = pixelValues.size
 		val width = pixelValues[0].size
 		
@@ -31,10 +31,10 @@ data class Image(val pixelValues: List<List<Float>>) {
 			for (y in 0 until height)
 				flipped[y][x] = pixelValues[y][width - 1 - x]
 		
-		return Image(flipped)
+		pixelValues = flipped
 	}
 	
-	fun scaleDown(targetWidth: Int, targetHeight: Int): Image {
+	fun scaleDown(targetWidth: Int, targetHeight: Int) {
 		val sourceHeight: Int = pixelValues.size
 		val sourceWidth: Int = pixelValues[0].size
 		val newPixels: MutableList<MutableList<Float>> = MutableList(targetHeight) {
@@ -67,7 +67,7 @@ data class Image(val pixelValues: List<List<Float>>) {
 			}
 		}
 		
-		return Image(newPixels)
+		pixelValues = newPixels
 	}
 }
 
