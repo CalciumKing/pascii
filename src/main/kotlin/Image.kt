@@ -7,6 +7,13 @@ import kotlin.random.Random
 data class Image(var pixelValues: List<List<Float>>, val settings: AsciiSettings) {
 	
 	constructor(frame: Frame, settings: AsciiSettings) : this(frameToFloat(frame, settings), settings){
+		scaleDown(settings.resX, settings.resY)
+		
+		if (settings.isMirrored)
+			flipHorizontal()
+		if (settings.onlyEdges)
+			detectEdges()
+	}
 	
 	fun getAscii(): List<List<Char>> {
 		val asciiImage: MutableList<MutableList<Char>> = MutableList(pixelValues.size) { MutableList(pixelValues[0].size) { ' ' } }
