@@ -10,7 +10,7 @@ data class Image(var pixelValues: List<List<Float>>, val settings: AsciiSettings
 	
 	fun getAscii(): List<List<Char>> {
 		val asciiImage: MutableList<MutableList<Char>> = MutableList(pixelValues.size) { MutableList(pixelValues[0].size) { ' ' } }
-		val symbols: CharArray = settings.charSet.chars
+		val symbols: CharArray = settings.charSet.getChars()
 		
 		for ((i: Int, floats: List<Float>) in pixelValues.withIndex()) {
 			for ((j: Int, v: Float) in floats.withIndex()) {
