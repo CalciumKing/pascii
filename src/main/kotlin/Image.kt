@@ -77,6 +77,21 @@ data class Image(var pixelValues: List<List<Float>>, val settings: AsciiSettings
 		
 		pixelValues = newPixels
 	}
+	
+	fun detectEdges() {
+		val height = pixelValues.size
+		val width = pixelValues[0].size
+		
+		val result = MutableList(height) {
+			MutableList(width) { 0f }
+		}
+		
+		for (x in 0 until width - 1)
+			for (y in 0 until height)
+				result[y][x] = abs(pixelValues[y][x] - pixelValues[y][x + 1])
+		
+		pixelValues = result
+	}
 }
 
 private fun frameToFloat(frame: Frame): List<List<Float>> {
