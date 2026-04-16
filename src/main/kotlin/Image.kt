@@ -6,7 +6,7 @@ import kotlin.random.Random
 
 data class Image(var pixelValues: List<List<Float>>, val settings: AsciiSettings) {
 	
-	constructor(frame: Frame, settings: AsciiSettings) : this(frameToFloat(frame, settings), settings){
+	constructor(frame: Frame, settings: AsciiSettings) : this(frameToFloat(frame, settings), settings) {
 		scaleDown(settings.resX, settings.resY)
 		
 		if (settings.isMirrored)
@@ -16,7 +16,9 @@ data class Image(var pixelValues: List<List<Float>>, val settings: AsciiSettings
 	}
 	
 	fun getAscii(): List<List<Char>> {
-		val asciiImage: MutableList<MutableList<Char>> = MutableList(pixelValues.size) { MutableList(pixelValues[0].size) { ' ' } }
+		val asciiImage: MutableList<MutableList<Char>> = MutableList(pixelValues.size) {
+			MutableList(pixelValues[0].size) { ' ' }
+		}
 		val symbols: CharArray = settings.charSet.getChars()
 		
 		for ((i: Int, floats: List<Float>) in pixelValues.withIndex()) {
@@ -33,7 +35,9 @@ data class Image(var pixelValues: List<List<Float>>, val settings: AsciiSettings
 		val height = pixelValues.size
 		val width = pixelValues[0].size
 		
-		val flipped = MutableList(height) { MutableList(width) { 0f } }
+		val flipped = MutableList(height) {
+			MutableList(width) { 0f }
+		}
 		
 		for (x in 0 until width)
 			for (y in 0 until height)
@@ -94,19 +98,21 @@ data class Image(var pixelValues: List<List<Float>>, val settings: AsciiSettings
 	}
 }
 
-private fun frameToFloat(frame: Frame): List<List<Float>> {
+private fun frameToFloat(frame: Frame, settings: AsciiSettings): List<List<Float>> {
 	val image: BufferedImage = Java2DFrameConverter().convert(frame)
 	
 	val height = image.height
 	val width = image.width
 	
-	val floatArray: MutableList<MutableList<Float>> = MutableList(height) { MutableList(width) { 0f } }
+	val floatArray: MutableList<MutableList<Float>> = MutableList(height) {
+		MutableList(width) { 0f }
+	}
 	
 	for (x in 0 until width) {
 		for (y in 0 until height) {
 			val pixel: Int = image.getRGB(x, y)
-			val grey = (pixel shr 16) and 0xFF  // extract greyscale value using red component
-			val normalized: Float = grey / 255f  // normalize in 0-1 range, 1 - ... inverts colors
+			val grey: Int = (pixel shr 16) and 0xFF  // extract greyscale value using red component
+			val normalized: Float = grey / 255f  // normalize in 0-1 range
 			
 			if (settings.noise) {
 				val noise = Random.nextFloat()

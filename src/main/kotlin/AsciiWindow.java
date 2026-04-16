@@ -30,7 +30,7 @@ public final class AsciiWindow extends JFrame {
         asciiArea.setBackground(Color.BLACK);
         asciiArea.setForeground(Color.WHITE);
         
-        for(CharSet value : CharSet.getEntries())
+        for (CharSet value : CharSet.getEntries())
             charsetCombo.addItem(value);
         
         String resXText = String.valueOf(resXSlider.getValue());
