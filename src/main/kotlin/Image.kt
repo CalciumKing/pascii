@@ -109,6 +109,13 @@ private fun frameToFloat(frame: Frame): List<List<Float>> {
 			val normalized: Float = grey / 255f  // normalize in 0-1 range, 1 - ... inverts colors
 			
 			floatArray[y][x] = normalized
+			if (settings.noise) {
+				val noise = Random.nextFloat()
+				if (noise > 0.9f) {
+					floatArray[y][x] = noise
+					continue
+				}
+			}
 		}
 	}
 	
