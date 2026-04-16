@@ -108,7 +108,6 @@ private fun frameToFloat(frame: Frame): List<List<Float>> {
 			val grey = (pixel shr 16) and 0xFF  // extract greyscale value using red component
 			val normalized: Float = grey / 255f  // normalize in 0-1 range, 1 - ... inverts colors
 			
-			floatArray[y][x] = normalized
 			if (settings.noise) {
 				val noise = Random.nextFloat()
 				if (noise > 0.9f) {
@@ -116,6 +115,8 @@ private fun frameToFloat(frame: Frame): List<List<Float>> {
 					continue
 				}
 			}
+			
+			floatArray[y][x] = if (settings.isInverted) 1f - normalized else normalized  // 1 - ... inverts colors
 		}
 	}
 	
