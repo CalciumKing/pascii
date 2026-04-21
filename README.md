@@ -1,10 +1,10 @@
 <img src="images/pascii-text.png" align="center" alt="PASCII Text Example Image">
 
-<img src="images/pascii-logo.png" width="200" style="float: right" alt="PASCII Logo">
-
 **P**ixel **ASCII** is a program that converts each pixel in the user's device's camera frame into an ASCII character,
 then displays it in the application window - where the user can apply various video affects and choose from different
 ASCII character sets.
+
+<img src="images/pascii-logo.png" width="200" style="float: right" alt="PASCII Logo">
 
 ### How It Works:
 Live video is a series of images (frames), which contain a few thousand pixels. Each pixel contains red, green, and
