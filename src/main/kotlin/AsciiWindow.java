@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
 public final class AsciiWindow extends JFrame {
     private JTextArea asciiArea;
@@ -17,6 +18,10 @@ public final class AsciiWindow extends JFrame {
     
     public AsciiWindow() {
         setTitle("pascii");
+        URL resource = getClass().getResource("pascii-logo.png");
+        if (resource != null)
+            setIconImage(new ImageIcon(resource).getImage());
+        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setContentPane(contentPane);
         pack();
