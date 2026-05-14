@@ -38,12 +38,10 @@ public final class AsciiWindow extends JFrame {
         for (CharSet value : CharSet.getEntries())
             charsetCombo.addItem(value);
         
-        String resXText = String.valueOf(resXSlider.getValue());
-        String resYText = String.valueOf(resYSlider.getValue());
-        resXLabel.setText(resXText);
-        resYLabel.setText(resYText);
-        resXSlider.addChangeListener(e -> resXLabel.setText(resXText));
-        resYSlider.addChangeListener(e -> resYLabel.setText(resYText));
+        resXLabel.setText(String.valueOf(resXSlider.getValue()));
+        resYLabel.setText(String.valueOf(resXSlider.getValue()));
+        resXSlider.addChangeListener(e -> resXLabel.setText(String.valueOf(resXSlider.getValue())));
+        resYSlider.addChangeListener(e -> resYLabel.setText(String.valueOf(resYSlider.getValue())));
         
         exitButton.addActionListener(e -> System.exit(0));
     }
