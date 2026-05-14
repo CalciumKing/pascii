@@ -98,7 +98,7 @@ data class Image(var pixelValues: List<List<Float>>, val settings: AsciiSettings
 	}
 }
 
-private fun frameToFloat(frame: Frame, settings: AsciiSettings): List<List<Float>> {
+fun frameToFloat(frame: Frame, settings: AsciiSettings): List<List<Float>> {
 	val image: BufferedImage = Java2DFrameConverter().convert(frame)
 	
 	val height = image.height
